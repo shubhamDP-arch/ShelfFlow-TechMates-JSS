@@ -8,7 +8,7 @@ function Dashboard(){
     
     const text = "Stock_Management_made_Easy";
     function handle(){
-       Navigate("/login")
+       Navigate("/Login")
     }
 
    
