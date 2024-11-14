@@ -33,6 +33,8 @@ function App(){
         <Route path="/scan" element={<BarcodeScanner />} />
         <Route path="/" element={<Dashboard />} />
         <Route path='/notification' element={<NotificationPage/>}/>
+        <Route path="product/:product" element={<Updateproduct/>}/>
+        
 
         </Routes>
       </Router>

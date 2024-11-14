@@ -1,31 +1,40 @@
-import { useEffect, useState } from "react"
-import { useParams } from 'react-router-dom';
-const ProductDetailPage = () => {
-  const { productId } = useParams();
+import React, { useEffect, useState } from "react";
+import Productdetail from "../Components/Productdetail";
+
+
+function ProductDetailPage() {
   const [data, setData] = useState([]);
-  console.log(productId)
-  const backapi = "http://localhost:5000"
+  const backapi = "http://localhost:5000";
+
   useEffect(() => {
     const fetchData = async () => {
+      const response = await fetch(`${backapi}/api/auth/getproducts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
       
-        const response = await fetch(`${backapi}/api/auth//productdetail/${productId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          const result = await response.json()
-          
-          setData(result)
-        } 
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result)
+        setData(result.products);
+      }
     };
 
-    fetchData()
-  }, [productId])
-  console.log(data)
-}
+    fetchData();
+  }, []);
+  console.log("ALl products", data)
+  return (
+    <div>
+          <h2>Product List</h2>
+    <div>
+      
+      {data.map((product, index) => (
+        <Productdetail key={index} product={product} destination={product._id} />
+      ))}
+    </div>
+    </div>
 
+  );
+}
 
 export default ProductDetailPage;

@@ -45,11 +45,11 @@ function AddProduct() {
   const imgpath = `../../public/images/${imgsource}`
 
   return (
-    <div className="app-background">
-      <div className="form-container">
-        <h1 className="form-heading">Product Information</h1>
-        <form className="form" onSubmit={handleSubmit}>
-          <label className="form-label">
+    <div>
+      <div>
+        <h1 className>Product Information</h1>
+        <form className onSubmit={handleSubmit}>
+          <label className>
             Product Name:
             <input
               type="text"
@@ -60,7 +60,7 @@ function AddProduct() {
               required
             />
           </label>
-          <label className="form-label">
+          <label classNam>
             Supplier Name:
             <input
               type="text"
@@ -71,7 +71,7 @@ function AddProduct() {
               required
             />
           </label>
-          <label className="form-label">
+          <label>
             Supplier Email:
             <input
               type="email"
@@ -82,7 +82,7 @@ function AddProduct() {
               required
             />
           </label>
-          <label className="form-label">
+          <label>
             Price:
             <input
               type="number"
