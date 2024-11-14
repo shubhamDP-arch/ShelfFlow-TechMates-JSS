@@ -14,6 +14,8 @@ import Productdetail from './components/productdetail';
 
 import SupplierDetails from './components/SupplierDetail';
 
+import SupplierDetails from './components/SupplierDetail';
+
 
 
 function App(){
