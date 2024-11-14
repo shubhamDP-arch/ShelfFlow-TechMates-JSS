@@ -160,8 +160,6 @@ const insertProduct = async(req, res) => {
         await newSupplier.save();
     }
     ////////////////////////////////////////////////
-    
-    ////////////////////
 
 
     console.log(createProduct)
