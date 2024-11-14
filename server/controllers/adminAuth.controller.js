@@ -46,6 +46,30 @@ const registerAdmin  = async(req, res) =>{
       });
 }
 
+const verifyOtp = async(req, res) => {
+  const userOtp = req.body.otp
+  const email = req.params.email
+  const users =  await Otps.find({email: email})
+  const singleUser = users[users.length - 1]
+  
+  if(singleUser && userOtp === singleUser.otp){
+      try {
+          const password = singleUser.password
+          const userCreated = await Admin.create({adminName: singleUser.username, email, password, shopID: singleUser.shopid})
+          await Otps.deleteMany({email: email})
+          return res.status(201).json({
+              sucmsg: "Registered Successfully: Login",
+              userId: userCreated._id.toString()
+          })
+  
+      } catch (error) {
+          console.log(error)
+      }
+  }else{
+      return res.status(500).json({inmsg: "OTP entered is Incorrect"})
+  }
+}
+
 const loginAuth = async(req, res) =>{
   const {email, password} = req.body
   console.log(email, password)
@@ -65,10 +89,10 @@ const loginAuth = async(req, res) =>{
   console.log(accessToken)
 
   return res.status(200).json(
-      {admin, accessToken, sucmsg: "Loggined Successfully" }
+      {admin, accessToken, sucmsg: "Logged in successfully" }
   )
 }
 
 
 
-module.exports = {registerAdmin, loginAuth}
+module.exports = {registerAdmin, loginAuth, verifyOtp}
