@@ -6,7 +6,7 @@ import SupplierDetails from './components/SupplierDetails'
 import Contactus from './components/Contactus'
 
 import BarcodeScanner from "./pages/react"
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 
 
 function App(){
