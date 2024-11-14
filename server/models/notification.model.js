@@ -8,7 +8,10 @@ const notificationSchema = new mongoose.Schema({
   description:{
     type:String,
     required : true
-}
+},
+  shopId:{
+    type:String,
+  }
 
 });
 const Notification = new mongoose.model("notifications", notificationSchema)

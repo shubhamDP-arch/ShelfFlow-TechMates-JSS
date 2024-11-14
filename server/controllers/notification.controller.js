@@ -1,11 +1,11 @@
 const Products = require("../models/product.model");
-const { Notification } = require("../models/notification-model");
+const { Notification } = require("../models/notification.model");
 const Orders = require("../models/order.model");
 
 const sendNotification = async (req, res) => {
   try {
     console.log("Notification check started");
-    const { shopid } = req.body;
+    const shopid  = req.shopid || "SHOP001";
     const currentDate = new Date();
 
     const currentProducts = await Products.find({ shopid });
@@ -72,7 +72,7 @@ const sendNotification = async (req, res) => {
     if (notifications.length > 0) {
       
       await Notification.insertMany(notifications)
-      res.status(200).json({ notifications })
+      res.status(200).json({ data: notifications })
     } else {
       res.status(200).json({ message: "No expired or low-stock products found." })
     }
