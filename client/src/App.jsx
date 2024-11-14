@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import './App.css'
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
@@ -6,8 +7,15 @@ import Contactus from './components/Contactus'
 import Updateproduct from './components/Updateproduct'
 import Addproduct from './components/Addproduct'
 
-function App() {
-  const [count, setCount] = useState(0)
+import BarcodeScanner from "./pages/react"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+
+function App(){
+    
+  return(
+    <Router>
+      <Routes>
 
   return (
     <>
@@ -22,6 +30,13 @@ function App() {
       </Router>
     </>
   )
+
+         <Route path="/scan" element={<BarcodeScanner />} />
+
+      </Routes>
+    </Router>
+      
+)
 }
 
 export default App
