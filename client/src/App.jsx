@@ -1,3 +1,5 @@
+import Dashboard from './Components/Dashboard';
+
 
 import { useState } from 'react'
 import './App.css'
@@ -8,14 +10,11 @@ import Updateproduct from './components/Updateproduct'
 import Addproduct from './components/Addproduct'
 
 import BarcodeScanner from "./pages/react"
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 
 
 function App(){
-    
-  return(
-    <Router>
-      <Routes>
+
 
   return (
     <>
@@ -26,17 +25,17 @@ function App(){
         <Route path="/contactus" element={<Contactus />} />
         <Route path="/updateproduct" element={<Updateproduct />} />
         <Route path="/Addproduct" element={<Addproduct />} />
+
+        <Route path="/scan" element={<BarcodeScanner />} />
+        <Route path="/" element={<Dashboard />} /> {/* Home component */}
+
         </Routes>
       </Router>
     </>
   )
 
-         <Route path="/scan" element={<BarcodeScanner />} />
 
-      </Routes>
-    </Router>
-      
-)
 }
+
 
 export default App
