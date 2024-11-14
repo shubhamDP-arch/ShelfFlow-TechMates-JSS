@@ -3,12 +3,76 @@ const path = require('path');
 const axios = require('axios');
 const Products = require('../models/product.model');
 const supplierModel = require('../models/supplier.model');
+const Cart = require("../models/cart-model")
 
 const updateProduct = async (req, res) => {
   const productid = new mongoose.Types.ObjectId("672f70f4114bc486efd1af20");
   const data = { quantity: 8, price: 12, total_sold: 32, productthreshold: 5, supplierName: 'Malli' };
   const updateProduct = await Products.updateOne({ _id: productid }, { $set: data });
   return res.json(updateProduct);
+}
+
+const updateStock = async (req, res) => {
+    console.log(req.body, "req");
+    const { cartItems } = req.body;
+    const shopid = "SHOP001";
+    const errorItems = [];
+
+    console.log("cartItems", cartItems);
+
+    cartItems.sort((a, b) => a.quantity - b.quantity);
+    console.log(" sorted cartitems", cartItems)
+
+    // Using a for...of loop to handle async operations sequentially
+    for (const element of cartItems) {
+        const product = await Products.findOne({ shopid: shopid, productname: element.productname });
+        
+        if (!product) {
+            // Product not found, add to errorItems or handle accordingly
+            errorItems.push({ productname: element.productname, message: "Product not found" });
+            continue;
+        }
+
+        console.log(product, "product");
+
+        if (product.quantity < element.quantity) {
+            // Not enough stock, add to errorItems
+            errorItems.push(product);
+        } else {
+            // Update the product quantity
+            product.quantity -= element.quantity;
+            product.total_sold += element.quantity
+            product.revenue_generated += (product.price)*element.quantity
+            // Save updated product quantity in the database
+            await Products.updateOne({ _id: product._id }, { $set: { quantity: product.quantity, total_sold: product.total_sold, revenue_generated: product.revenue_generated } });
+
+            const itemid = element._id
+            console.log(itemid)
+            // Remove item from the cart
+            await Cart.deleteOne({ shopid: shopid, _id: itemid });
+        }
+    }
+
+    console.log("errorItems", errorItems);
+
+    // Send a response based on the presence of errorItems
+    if (errorItems.length < 1) {
+        return res.json({ success: true, message: "Stock updated successfully" });
+    } else {
+        return res.json({success: false, errorItems: errorItems, message: "Insufficient Stock" });
+    }
+};
+
+const addToCart = async(req, res) => {
+    const {productname, quantity} = req.body;
+    const shopid = req.shopid || "SHOP001"
+    console.log(productname, quantity, shopid)
+
+    const addItemToCart = await Cart.create({productname, quantity, shopid})
+    console.log(addItemToCart)
+
+    const cartItems = await Cart.find({shopid: shopid});
+    return res.json({cartItems: cartItems})
 }
 
 const insertProduct = async(req, res) => {
@@ -48,20 +112,17 @@ const insertProduct = async(req, res) => {
         const apiUrl = `https://barcodeapi.org/api/${result}`;
 
         try {
-            // Fetch the barcode data (assuming it's JSON)
             const response = await axios.get(apiUrl);
             
-            // Extract the base64 string from the response
-            const base64Data = response.data.base64; // Adjust based on actual structure
+            const base64Data = response.data.base64;
             
             if (!base64Data) {
                 console.error('No base64 data found in the response.');
                 return;
             }
 
-  // Specify the file path to save the image
   const imageBuffer = Buffer.from(base64Data, "base64")
-  const imagesDir = path.join(__dirname, "../../client/public/images");//file path changed check later
+  const imagesDir = path.join(__dirname, "../../client/public/images");
   if (!fs.existsSync(imagesDir)) {
       fs.mkdirSync(imagesDir);
   }
@@ -105,12 +166,31 @@ const insertProduct = async(req, res) => {
     return res.json({imagesource: imageName})
 }
 
-const deleteItem = async (req, res) => {
-  const shopid = req.shopid;
-  const { itemId } = req.body;
-  await Cart.deleteOne({ _id: itemId, shopid: shopid });
-  const cartItems = await Cart.find({ shopid: shopid });
-  return res.json({ cartItems: cartItems });
+const deleteItem = async(req, res) => {
+    console.log("Deleteing")
+    const shopid = "SHOP001";
+    const {itemId} = req.body;
+    console.log(itemId)
+    await Cart.deleteOne({_id: itemId, shopid: shopid})
+    const cartItems = await Cart.find({shopid: shopid});
+    return res.json({cartItems: cartItems})
 }
 
-module.exports = { insertProduct, updateProduct, deleteItem };
+const getCartItems = async(req, res) => {
+    const shopid = req.shopid;
+    const cartItems = await Cart.find({shopid: "SHOP001"});
+    return res.json({cartItems: cartItems})
+}
+
+const scanProduct = async(req, res) => {
+    const {data} = req.body;
+    console.log("data", data)
+    const fetchProduct = await Products.findOne({barcodeid: data})
+    if(!fetchProduct)
+    {
+        return res.json({productname: "Scan Again"})
+    }
+    return res.json({productname: fetchProduct.productname})
+}
+
+module.exports = {updateStock, addToCart, insertProduct, updateProduct, deleteItem, getCartItems, scanProduct};
