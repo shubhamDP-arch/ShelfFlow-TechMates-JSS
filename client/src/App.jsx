@@ -19,18 +19,13 @@ function App(){
 
         <Route path="/supplierdetail" element={<SupplierDetails />} />
         <Route path="/contactus" element={<Contactus />} />
-        
+        <Route path="/scan" element={<BarcodeScanner />} />
         </Routes>
       </Router>
     </>
   )
 
-         <Route path="/scan" element={<BarcodeScanner />} />
-
-      </Routes>
-    </Router>
-      
-)
+         
 }
 
 export default App
