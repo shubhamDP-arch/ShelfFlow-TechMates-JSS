@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import './Addproduct.css';
 
-function App() {
+function AddProduct() {
+
+  const [imageinput, setImageInput] = useState(false)
+  const [imgsource, setImagesource] = useState("")
+  const backapi = `http://localhost:5000`
+
   const [formData, setFormData] = useState({
     productName: "",
     supplierName: "",
@@ -14,11 +19,30 @@ function App() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     alert("Form submitted successfully!");
     console.log("Submitted Data:", formData);
+
+    try {
+      console.log(formData)
+        const response = await fetch(`${backapi}/api/auth/insertproduct`, {
+          method: "POST",
+          headers:{
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
+        })
+        const message = await response.json();
+        console.log(message)
+        setImagesource(message.imagesource)
+        setImageInput(true)
+    } catch (error) {
+      console.log(error)
+    }
   };
+
+  const imgpath = `../../public/images/${imgsource}`
 
   return (
     <div className="app-background">
@@ -71,9 +95,10 @@ function App() {
           </label>
           <button type="submit" className="form-button">Generate Barcode</button>
         </form>
+        <img src={imgpath} alt="" />
       </div>
     </div>
   );
 }
 
-export default App;
+export default AddProduct;
