@@ -1,0 +1,57 @@
+.product-table-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-table-title {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.product-table thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.product-table-header {
+    padding: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.product-table-row {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.product-table-row:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+.product-table-row:hover {
+    background-color: #e8f5e9;
+}
+
+.product-table-cell {
+    padding: 12px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-table-cell:first-child {
+    font-weight: bold;
+    color: #333;
+}
