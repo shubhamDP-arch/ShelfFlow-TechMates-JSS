@@ -107,4 +107,14 @@ console.log('Barcode image saved successfully:', imagePath);
   return res.json({imagesource: imageName})
 }
 
+
+const deleteItem = async(req, res) => {
+  console.log("Deleteing")
+  const shopid = req.shopid;
+  const {itemId} = req.body;
+  console.log(itemId)
+  await Cart.deleteOne({_id: itemId, shopid: shopid})
+  const cartItems = await Cart.find({shopid: shopid});
+  return res.json({cartItems: cartItems})
+}
 module.exports = {insertProduct, updateProduct}
