@@ -1,13 +1,13 @@
 import React from "react";
 import {useNavigate} from 'react-router-dom'
-
+import '/public/card.css'
 function Card(props){
   const navigate=useNavigate();
   function handleClick(){
       navigate(props.sendRequest);
   }
     return(
-        <div className="card" style={{ width: '23rem', height: '29rem' }}>
+        <div className="cardhome" >
       <img
         className=" clsImg bd-placeholder-img card-img-top" 
         width="100%" 
@@ -25,7 +25,12 @@ function Card(props){
       <div className="card-body">
         <h5 className="card-title">{props.title}</h5>
         <p className="card-text">{props.content}</p>
-        <a href="#" className=" btn-primary" onClick={handleClick}>Go somewhere</a>
+        <button class="Btn" onClick={handleClick}>
+  
+  <div class="sign">+</div>
+  
+  <div class="text">{props.say}</div>
+</button>
       </div>
     </div>
     )
