@@ -36,7 +36,6 @@ const productSchema = new mongoose.Schema({
   productthreshold: {
     type: Number,
   },
-
   supplierName:{
     type:String,
     required: true

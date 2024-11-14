@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const axios =  require("axios");
 const Products = require('../models/product.model');
 const supplierModel = require('../models/supplier.model');
 const { privateDecrypt } = require('crypto');
@@ -19,12 +18,12 @@ const insertProduct = async(req, res) => {
   console.log("Hii")
   const shopid = req.shopid || "HOP002"
   console.log("Hiii Baby")
-  const productName = req.body.productname;
+
 
   const product = await Products.findOne({productname: productName, shopid: shopid})
 
 
-  const {supplierName, supplierEmail} = req.body;
+  const {supplierName, supplierEmail, productName, price} = req.body;
   console.log(supplierEmail, supplierName)
   
   
@@ -64,28 +63,28 @@ const insertProduct = async(req, res) => {
           }
 
 
-const imageBuffer = Buffer.from(base64Data, "base64")
-const imagesDir = path.join(__dirname, "../../client/public/images");
-if (!fs.existsSync(imagesDir)) {
-    fs.mkdirSync(imagesDir);
-}
+        const imageBuffer = Buffer.from(base64Data, "base64")
+        const imagesDir = path.join(__dirname, "../../client/public/images");
+        if (!fs.existsSync(imagesDir)) {
+            fs.mkdirSync(imagesDir);
+        }
 
-const imagePath = path.join(imagesDir, `barcode${result}.png`);
+        const imagePath = path.join(imagesDir, `barcode${result}.png`);
 
 
-fs.writeFileSync(imagePath, imageBuffer);
-console.log('Barcode image saved successfully:', imagePath);
+        fs.writeFileSync(imagePath, imageBuffer);
+        console.log('Barcode image saved successfully:', imagePath);
 
-      } catch (error) {
-          console.error('Error generating barcode:', error);
-      }
-  }
+              } catch (error) {
+                  console.error('Error generating barcode:', error);
+              }
+          }
 
   const barcodeId = (result + productName.slice(0,3)+ shopid.slice(0,3)).trim()
   const imageName = `barcode${barcodeId}.png`
   generateBarcode(barcodeId);
 
-  const createProduct = await Products.create({barcodeid: barcodeId,imagename: imageName, productname: productName, quantity: 0, price: 0, total_sold: 0, shopid: "SHOP001", productthreshold: 0, supplierName:supplierName} )//////
+  const createProduct = await Products.create({barcodeid: barcodeId,imagename: imageName, productname: productName, quantity: 0, price: price, total_sold: 0, shopid: "SHOP001", productthreshold: 0, supplierName:supplierName} )
   const existingSupplier = await supplierModel.findOne({ supplierName, supplierEmail });
   if (existingSupplier) {
       existingSupplier.products.push(productName);
@@ -117,4 +116,4 @@ const deleteItem = async(req, res) => {
   const cartItems = await Cart.find({shopid: shopid});
   return res.json({cartItems: cartItems})
 }
-module.exports = {insertProduct, updateProduct}
+module.exports = {insertProduct, updateProduct, deleteItem}
