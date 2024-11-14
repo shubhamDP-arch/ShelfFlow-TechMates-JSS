@@ -1,10 +1,10 @@
 import React from "react";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SupplierDetailsCard from "./SupplierDetailsCard";
 import { useAuth } from "../store/auth";
 
-function DisplayProduct() {
+function SupplierDetails() {
   const [data, setData] = useState([]);
       const backapi = "http://localhost:5000"
   const shopid = useAuth()
@@ -43,6 +43,6 @@ function DisplayProduct() {
   );
 }
 
-export default DisplayProduct;
+export default SupplierDetails;
 
 
