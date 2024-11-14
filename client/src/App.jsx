@@ -1,3 +1,5 @@
+import Dashboard from './Components/Dashboard';
+
 
 import { useState } from 'react'
 import './App.css'
@@ -20,12 +22,14 @@ function App(){
         <Route path="/supplierdetail" element={<SupplierDetails />} />
         <Route path="/contactus" element={<Contactus />} />
         <Route path="/scan" element={<BarcodeScanner />} />
+          <Route path="/" element={<Dashboard />} /> {/* Home component */}
         </Routes>
       </Router>
     </>
   )
 
-         
+
 }
+
 
 export default App
