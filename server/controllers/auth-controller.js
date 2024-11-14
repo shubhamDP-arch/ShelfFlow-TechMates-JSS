@@ -96,7 +96,7 @@ const insertProduct = async(req, res) => {
       {
           return res.json({msg: "Supplier email already present. Check the username"})
       }
-      const newSupplier = await supplierModel.create({ supplierName, supplierEmail, products: [productName] });
+      const newSupplier = await supplierModel.create({ supplierName, supplierEmail, products: [productName],shopid:shopid });
       console.log(newSupplier)
       await newSupplier.save();
   }
