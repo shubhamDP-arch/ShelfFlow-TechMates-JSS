@@ -25,7 +25,7 @@ function Navbar(){
                     <img src="/public/seld.png" alt="logo" />
                 </div>
                 <div className="hamburger" onClick={toggleSidebar}>
-                    ☰
+                    
                 </div>
                 <ul className={`nav-links ${isOpen ? "active" : ""}`}>
                     <span className="close-btn"onClick={closeSidebar} >✕</span>

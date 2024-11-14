@@ -13,7 +13,7 @@ const supplierSchema = new mongoose.Schema({
   },
   shopId:{
     type:String,
-    required: true,
+    
     unique: true
   },
   products:[

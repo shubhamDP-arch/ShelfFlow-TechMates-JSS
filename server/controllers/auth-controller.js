@@ -193,4 +193,23 @@ const scanProduct = async(req, res) => {
     return res.json({productname: fetchProduct.productname})
 }
 
-module.exports = {updateStock, addToCart, insertProduct, updateProduct, deleteItem, getCartItems, scanProduct};
+
+const soldProducts = async (req, res) => {
+    const shopid = "SHOP001";
+
+    try {
+        const allProducts = await Products.find({ shopid: shopid });
+        console.log(allProducts);
+
+        // Sort by `total_sold` in descending order
+        allProducts.sort((a, b) => b.total_sold - a.total_sold);
+
+        return res.json({ items: allProducts });
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+
+module.exports = {updateStock, addToCart, insertProduct, updateProduct, deleteItem, getCartItems, scanProduct, soldProducts};
