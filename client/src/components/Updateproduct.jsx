@@ -26,10 +26,15 @@ function UpdateProduct() {
         console.log("Product data submitted:", product);
     };
 
+    
+           
     return (
-        <>
+       <>
+      
+    <div className="update-product-wrapper">
             <div className="product-form-container">
                 <h2 className="product-form-title">Update Your Product</h2>
+               
                 <form className="product-form" onSubmit={handleSubmit}>
                     <label className="product-form-label">Product Name
                         <input type="text" name="name" value={product.name} onChange={handleChange} className="product-form-input" required />
@@ -53,9 +58,12 @@ function UpdateProduct() {
                         <input type="number" name="thresholdQuantity" value={product.thresholdQuantity} onChange={handleChange} className="product-form-input" required />
                     </label>
                     <button type="submit" className="product-form-submit">Update</button>
+                
                 </form>
             </div>
-        </>
+        </div>
+
+      </>
     );
 }
 

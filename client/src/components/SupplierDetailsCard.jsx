@@ -1,7 +1,7 @@
 import React from "react";
 import './SupplierDetails.css'; 
 
-function SupplierDetails() {
+function SupplierDetailsCard({supplier}) {
     return (
         <div className="card-container">
             <div className="neumorphic-card highlight-card">
@@ -9,7 +9,7 @@ function SupplierDetails() {
                 <div className="card-info">
                     <div className="info-item">
                         <strong>Supplier Name:</strong>
-                        <p>Lathesh Rai</p>
+                        <p></p>
                     </div>
                     <div className="info-item">
                         <strong>Supplier Email:</strong>
@@ -26,4 +26,4 @@ function SupplierDetails() {
     );
 }
 
-export default SupplierDetails;
+export default SupplierDetailsCard;
