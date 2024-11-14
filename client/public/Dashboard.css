@@ -9,13 +9,14 @@ body {
 
 /* Hero Section */
 .hero {
-    background-image: radial-gradient(#a584c7 2px, transparent 2px), radial-gradient(#a584c7 2px, transparent 2px);
+
 background-size: 42px 42px;
 background-position: 0 0, 21px 21px;
-background-color: #ffffff;
+background-color: #f5f5f5;
     text-align: center;
-    padding: 4em 1em;
+    padding: 2em 1em;
     color:#4C1F7A;
+    
 }
 .typing {
     
@@ -57,13 +58,21 @@ background-color: #ffffff;
     font-size: 5em;
     color: #4C1F7A;
     margin-bottom: 10px;
-}
+    
 
+}
+.heropara{
+    
+    width: 100%;
+}
 .hero p {
-    font-size: 1.2em;
+    padding-bottom: 40px;
+    font-size: 1.3em;
+    color: black;
+    text-shadow: 0px 0px 10px rgb(255, 255, 255),0px 0px 10px white,0px 0px 10px white,0px 0px 10px white;
     margin: 0.2em 0 1.5em;
-    color: #4c4c4c;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Offset and blur with slight opacity */
+    
+    /* Offset and blur with slight opacity */
         
 }
 
@@ -102,27 +111,6 @@ background-color: #ffffff;
     box-shadow: #1f9294 0px 3px 2px,#000 0px 3px 5px;
   }
 
-/* Features Section */
-.features {
-    display: flex;
-    justify-content: space-around;
-    padding: 4em 2em;
-    background-color: white;
-}
-
-.feature-card {
-    background-color: #f0e6ff;
-    padding: 2em;
-    border-radius: 10px;
-    width: 20%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, background-color 0.3s;
-}
-
-.feature-card:hover {
-    transform: translateY(-10px);
-    background-color: #d1b3ff;
-}
 
 
 
@@ -138,54 +126,107 @@ background-color: #ffffff;
     text-decoration: underline;
 }
 .about-company-section {
-    background-color: #f3f4f6;
-    padding: 3rem 1rem;
+    
+    padding: 1rem 1rem;
     text-align: center;
   }
-  
+  .companyshelf{
+    color: #FF8000;
+  }
   .company-title {
     font-size: 2.5rem;
-    color: #333;
+    color: #221f1f;
     margin-bottom: 2rem;
   }
   
   .company-content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
-  }
-  
-  .company-intro {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 2rem;
+    font-size: 20px;
+    color: #626464;
+    line-height: 30px;
+    
   }
   
   .company-details h2 {
+    padding-top: 20px;
     color: #4a4a4a;
-    font-size: 1.8rem;
+    font-size: 3rem;
     margin-top: 1.5rem;
+    margin-bottom: 10px;
   }
   
   .company-details p,
   .company-details ul {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.6;
+    margin: 0 auto;
+    font-size: 20px;
+    color: #626464;
+    line-height: 30px;
   }
   
-  .company-values ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .company-values li {
-    margin: 0.5rem 0;
-  }
-  
-  .company-values strong {
-    color: #333;
-  }
-  
-  .company-button {
+  .company-mission, .company-goals {
     margin-top: 2rem;
+  }
+  
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+  }
+  
+  .content {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .image {
+    flex-shrink: 0;
+    width: 500px;
+    height: 500px;
+    
+  }
+  
+  .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .logoAbout{
+    flex-shrink: 0;
+    width: 300px;
+    height: 150px;
+    
+  }
+  @media (max-width: 768px) {
+    .flex-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .content {
+      text-align: center;
+    }
+  
+    .image {
+      width: 300px;
+      height: 300px;
+      margin-top: 1rem;
+    }
+  }
+  /* Footer Styles */
+.footer {
+    background-color: #EEEEEE; 
+    color: #c2bdbd;            
+    text-align: center;    
+    padding: 1rem;          
+    
+    bottom: 0;             
+    width: 100%;            
+    font-size: 1rem;        
+  }
+  
+  .footer-text {
+    margin: 0;             
+    font-family: Arial, sans-serif; 
   }
