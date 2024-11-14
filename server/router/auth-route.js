@@ -18,4 +18,6 @@ router.route("/deleteitemincart").post(authControllers.deleteItem)
 router.route("/deleteproduct").post(authControllers.deleteItem);
 router.route("/allSupplier").post(getAllSupplier)
 router.route("/notifications").post(sendNotification)
+router.route("/getproducts").post(authControllers.getProducts)
+router.route("/productdetail/:productId").post(authControllers.productDetails)
 module.exports = router

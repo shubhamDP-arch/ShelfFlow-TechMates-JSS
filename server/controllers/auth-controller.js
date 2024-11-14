@@ -192,5 +192,19 @@ const scanProduct = async(req, res) => {
     }
     return res.json({productname: fetchProduct.productname})
 }
+const getProducts = async(req, res) => {
+    const shopid = req.shopid || "SHOP001"
+    const allProducts = await Products.find({shopid: shopid});
+    console.log(allProducts)
+    res.json({products: allProducts})
+}
 
-module.exports = {updateStock, addToCart, insertProduct, updateProduct, deleteItem, getCartItems, scanProduct};
+const productDetails = async(req, res) => {
+    const productId = req.params.productId;
+    console.log(productId)
+    const product = await Products.findOne( {_id: productId});
+    console.log(product)
+    return res.json(product)
+}
+
+module.exports = {updateStock, addToCart, insertProduct, updateProduct, deleteItem, getCartItems, scanProduct, getProducts, productDetails};
