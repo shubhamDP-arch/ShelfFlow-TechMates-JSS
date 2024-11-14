@@ -13,31 +13,48 @@ const sendNotification = async (req, res) => {
 
     console.log("Fetched Products:", currentProducts);
 
-  
-    const expiredProducts = orderProducts.filter((item) => {
+ 
+    const dateIn10Days = new Date();
+    dateIn10Days.setDate(currentDate.getDate() + 10);
+
+ 
+    const alreadyExpiredProducts = orderProducts.filter((item) => {
       const { exp_date } = item;
       if (exp_date) {
-    
-    const [day, month, year] = exp_date.split('-');
-    const expDateObj = new Date(`${year}-${month}-${day}`);
-    
-
-    const thresholdDate = new Date();
-    thresholdDate.setDate(thresholdDate.getDate() - 10); 
-    return expDateObj <= thresholdDate && expDateObj >= currentDate;
+        const [day, month, year] = exp_date.split('-')
+        const expDateObj = new Date(`${year}-${month}-${day}`)
+        return expDateObj < currentDate;
       }
       return false;
     });
+
+  
+    const soonToExpireProducts = orderProducts.filter((item) => {
+      const { exp_date } = item
+      if (exp_date) {
+        const [day, month, year] = exp_date.split('-')
+        const expDateObj = new Date(`${year}-${month}-${day}`)
+        return expDateObj >= currentDate && expDateObj <= dateIn10Days
+      }
+      return false;
+    });
+
 
     const thresholdProducts = currentProducts.filter((item) => {
       const { productthreshold, quantity } = item;
       return productthreshold && quantity && quantity < productthreshold;
     });
 
-    
-    const expiredNotifications = expiredProducts.map((product) => ({
-      notificationType: "Product Expiry",
-      description: `Product ${product.name} has expired on ${product.exp_date}.`,
+
+    const expiredNotifications = alreadyExpiredProducts.map((product) => ({
+      notificationType: "Product Expired",
+      description: `Product ${product.name} has already expired on ${product.exp_date}.`,
+    }));
+
+ 
+    const soonToExpireNotifications = soonToExpireProducts.map((product) => ({
+      notificationType: "Upcoming Expiry",
+      description: `Product ${product.name} will expire on ${product.exp_date}.`,
     }));
 
     const thresholdNotifications = thresholdProducts.map((product) => ({
@@ -45,15 +62,19 @@ const sendNotification = async (req, res) => {
       description: `Product ${product.productname} is below the threshold level. Current quantity: ${product.quantity}, Threshold: ${product.productthreshold}.`,
     }));
 
-    const notifications = [...expiredNotifications, ...thresholdNotifications];
-    console.log("Generated notifications:", notifications);
+    const notifications = [
+      ...expiredNotifications,
+      ...soonToExpireNotifications,
+      ...thresholdNotifications,
+    ];
+    console.log("Generated notifications:", notifications)
 
     if (notifications.length > 0) {
-
-      await Notification.insertMany(notifications);
-      res.status(200).json({ notifications });
+      
+      await Notification.insertMany(notifications)
+      res.status(200).json({ notifications })
     } else {
-      res.status(200).json({ message: "No expired or low-stock products found." });
+      res.status(200).json({ message: "No expired or low-stock products found." })
     }
   } catch (error) {
     console.error("Error in sendNotification:", error);

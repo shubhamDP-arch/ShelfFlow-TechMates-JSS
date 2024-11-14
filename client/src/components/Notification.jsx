@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom';
-const ProductDetailPage = () => {
-  const { productId } = useParams();
+const NoticationPage = () => {
+
   const [data, setData] = useState([]);
-  console.log(productId)
+  
   const backapi = "http://localhost:5000"
   useEffect(() => {
     const fetchData = async () => {
       
-        const response = await fetch(`${backapi}/api/auth//productdetail/${productId}`, {
+        const response = await fetch(`${backapi}/api/auth/notifications`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
