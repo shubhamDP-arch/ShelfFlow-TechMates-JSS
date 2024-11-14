@@ -1,22 +1,14 @@
 import Dashboard from './Components/Dashboard';
-
-
 import { useState } from 'react'
 import './App.css'
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
-
 import Contactus from './components/Contactus'
 import Updateproduct from './components/Updateproduct'
 import Addproduct from './components/Addproduct'
-
 import BarcodeScanner from "./pages/react"
 import Productdetail from './components/productdetail';
-
 import SupplierDetails from './components/SupplierDetail';
-
-import SupplierDetails from './components/SupplierDetail';
-
-
+import NotificationPage from './components/NotificationPage';
 
 function App(){
 
@@ -33,7 +25,7 @@ function App(){
         <Route path="/Productdetail" element={<Productdetail />} />
         <Route path="/scan" element={<BarcodeScanner />} />
         <Route path="/" element={<Dashboard />} />
-
+        <Route path='/notification' element={<NotificationPage/>}/>
         </Routes>
       </Router>
     </>

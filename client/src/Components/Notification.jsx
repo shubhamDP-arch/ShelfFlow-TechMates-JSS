@@ -32,4 +32,4 @@ function Notification() {
     );
 }
 
-export default NotificationTable;
+export default Notification;

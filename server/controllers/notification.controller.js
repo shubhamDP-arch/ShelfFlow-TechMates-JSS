@@ -1,5 +1,5 @@
 const Products = require("../models/product.model");
-const { Notification } = require("../models/notification-model");
+const { Notification } = require("../models/notification.model");
 const Orders = require("../models/order.model");
 
 const sendNotification = async (req, res) => {
