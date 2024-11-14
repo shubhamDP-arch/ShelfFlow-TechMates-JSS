@@ -28,4 +28,4 @@ const NoticationPage = () => {
 }
 
 
-export default ProductDetailPage;
+export default {NoticationPage};
