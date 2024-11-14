@@ -3,8 +3,18 @@ const path = require('path');
 const axios =  require("axios");
 const Products = require('../models/product.model');
 const supplierModel = require('../models/supplier.model');
+const { privateDecrypt } = require('crypto');
 
+const updateProduct = async(req, res) => {
 
+  const productid = new mongoose.Types.ObjectId("672f70f4114bc486efd1af20");
+  // {quantity, price, total_sold, productthreshold, supplierName} = req.body ||
+  const data =  {quantity:8, price:12, total_sold :32, productthreshold: 5, supplierName: 'Malli'}
+  console.log(data)
+  const updateProduct = await Products.updateOne({_id: productid}, {$set: data})
+  console.log(updateProduct)
+  return res.json(updateProduct)
+}
 const insertProduct = async(req, res) => {
   console.log("Hii")
   const shopid = req.shopid || "HOP002"
@@ -97,4 +107,4 @@ console.log('Barcode image saved successfully:', imagePath);
   return res.json({imagesource: imageName})
 }
 
-module.exports = {insertProduct}
+module.exports = {insertProduct, updateProduct}
