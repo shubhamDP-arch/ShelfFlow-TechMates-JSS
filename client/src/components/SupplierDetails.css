@@ -1,0 +1,81 @@
+.card-container {
+    display: flex;
+    justify-content: start;
+    align-items: start; 
+    gap: 20px;
+    padding: 40px;
+    background-color: #e0e5ec;
+    min-height: 100vh;
+  }
+  
+  .neumorphic-card {
+    width: 300px;
+    height: auto;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: #e0e5ec;
+    box-shadow: 8px 8px 15px #b8c0cc, -8px -8px 15px #ffffff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    transition: transform 0.3s ease;
+  }
+  
+  .neumorphic-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .highlight-card {
+    background: linear-gradient(135deg, #8EC5FC, #E0C3FC);
+    color: #fff;
+  }
+  
+  .card-title {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1; 
+  }
+  
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-item strong {
+    font-size: 1.1em;
+    color: #333;
+  }
+  
+  .info-item p {
+    font-size: 1em;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  .card-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 10px #b8c0cc, -4px -4px 10px #ffffff;
+    transition: background-color 0.3s ease;
+    align-self: center; 
+    margin-top: auto; 
+  }
+  
+  .card-button:hover {
+    background-color: #0056b3;
+  }
+  
