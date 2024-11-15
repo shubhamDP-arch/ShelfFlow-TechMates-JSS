@@ -27,3 +27,4 @@ function Notification( {notification} ) {
 }
 
 export default Notification;
+
